@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/ubongo-solver/static/css/main.04e84cff.chunk.css",
+    "main.js": "/ubongo-solver/static/js/main.ff336fcc.chunk.js",
+    "main.js.map": "/ubongo-solver/static/js/main.ff336fcc.chunk.js.map",
+    "runtime-main.js": "/ubongo-solver/static/js/runtime-main.de03ea41.js",
+    "runtime-main.js.map": "/ubongo-solver/static/js/runtime-main.de03ea41.js.map",
+    "static/js/2.d726cf9b.chunk.js": "/ubongo-solver/static/js/2.d726cf9b.chunk.js",
+    "static/js/2.d726cf9b.chunk.js.map": "/ubongo-solver/static/js/2.d726cf9b.chunk.js.map",
+    "index.html": "/ubongo-solver/index.html",
+    "precache-manifest.1b9ad498043835386be06c0c6fd6345d.js": "/ubongo-solver/precache-manifest.1b9ad498043835386be06c0c6fd6345d.js",
+    "service-worker.js": "/ubongo-solver/service-worker.js",
+    "static/css/main.04e84cff.chunk.css.map": "/ubongo-solver/static/css/main.04e84cff.chunk.css.map",
+    "static/js/2.d726cf9b.chunk.js.LICENSE": "/ubongo-solver/static/js/2.d726cf9b.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.de03ea41.js",
+    "static/js/2.d726cf9b.chunk.js",
+    "static/css/main.04e84cff.chunk.css",
+    "static/js/main.ff336fcc.chunk.js"
+  ]
+}
