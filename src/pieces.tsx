@@ -94,7 +94,7 @@ const GREEN = 0x7da442;
 export const COLORS = [BLUE, YELLOW, RED, GREEN];
 
 const RED_PIECES = [piece1, piece4, piece10, piece11];
-const GREEN_PIECES = [piece8, piece3, piece7, piece8, piece12Mirror];
+const GREEN_PIECES = [piece8, piece3, piece7, piece12Mirror];
 const BLUE_PIECES = [piece0, piece7Mirror, piece9, piece12];
 const YELLOW_PIECES = [piece1_1, piece2, piece13, piece4Mirror];
 
