@@ -60,7 +60,6 @@ class UbongoRenderer {
   private selectPiecesGroup = new THREE.Group();
   private solveResult: SolvedPiece[] = [];
   private solvePiecesGroup = new THREE.Group();
-  private mouseDown = false;
   private controls: OrbitControls | null = null;
   constructor() {
     this.renderer.shadowMap.enabled = true;
@@ -72,17 +71,16 @@ class UbongoRenderer {
     document.getElementById("button")!.addEventListener("click", () => {
       this.buttonCallback();
     });
-    document.addEventListener("mousedown", () => {
-      this.mouseDown = true;
-    });
-    document.addEventListener("mouseup", () => {
-      this.mouseDown = false;
-    });
+    window.document.addEventListener(
+      "mousewheel",
+      ev => {
+        this.scheduleFrame();
+      },
+      { capture: true }
+    );
     window.document.addEventListener("mousemove", ev => {
       this.mouse.x = (ev.clientX / window.innerWidth) * 2 - 1;
       this.mouse.y = -(ev.clientY / window.innerHeight) * 2 + 1;
-      if (this.state === 6 && this.mouseDown) {
-      }
       this.scheduleFrame();
     });
     window.document.addEventListener("click", () => {
@@ -250,14 +248,14 @@ class UbongoRenderer {
           this.camera,
           document.getElementsByTagName("body")[0]
         );
-        /*this.controls.rotateSpeed = 1.0;
-        this.controls.zoomSpeed = 1.2;
-        this.controls.panSpeed = 0.8;*/
         this.controls.target = new THREE.Vector3(0, 0, -0.6);
         this.state = 6;
       }
       this.scheduleFrame();
     } else if (this.state === 6) {
+      this.setText(
+        "3/3: Raahaa hiirtä liikuttaaksesi kameraa ja rullaa hiirtä zoomataksesi"
+      );
       this.controls?.update();
       let hasMoved = false;
       let handledIndices = 0;
