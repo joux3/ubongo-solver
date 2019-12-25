@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a9a7b9eb8a9edd8fd63ea1af324fc317",
+    "revision": "43d2e415c0cb61a3c07184b032be7b57",
     "url": "/ubongo-solver/index.html"
   },
   {
-    "revision": "1cb517ee17b34b7164a4",
+    "revision": "548a5745c3766aa31200",
     "url": "/ubongo-solver/static/css/main.04e84cff.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ubongo-solver/static/js/2.572f8a6f.chunk.js.LICENSE"
   },
   {
-    "revision": "1cb517ee17b34b7164a4",
-    "url": "/ubongo-solver/static/js/main.ea0cb66b.chunk.js"
+    "revision": "548a5745c3766aa31200",
+    "url": "/ubongo-solver/static/js/main.27bd52dd.chunk.js"
   },
   {
     "revision": "9073aa516f38c0f163db",
