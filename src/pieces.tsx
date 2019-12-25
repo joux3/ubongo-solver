@@ -1,5 +1,8 @@
 import _ from "lodash";
 import * as THREE from "three";
+import ThreeBSPConstructor from "three-js-csg";
+
+const ThreeBSP = ThreeBSPConstructor(THREE);
 
 const piece0 = [
   [1, 1],
@@ -120,19 +123,23 @@ export function computePieceObjects(
         color,
         roughness: 0.9
       });
-      const geo = new THREE.Geometry();
+      let pieceBSP: any = null;
       packedGeo.forEach((row, y) => {
         row.forEach((piece, x) => {
           for (let z = 0; z < piece; z++) {
             const thisGeo = blockGeometry.clone();
             thisGeo.translate(x * size.x, y * size.y, z * size.z);
-            geo.mergeMesh(new THREE.Mesh(thisGeo));
-            geo.mergeVertices();
+            const mesh = new THREE.Mesh(thisGeo);
+            if (pieceBSP) {
+              pieceBSP = pieceBSP.union(new ThreeBSP(mesh));
+            } else {
+              pieceBSP = new ThreeBSP(mesh);
+            }
           }
         });
       });
-      geo.mergeVertices();
-      const mesh = new THREE.Mesh(geo, objectMaterial);
+      const mesh = pieceBSP.toMesh();
+      mesh.material = objectMaterial;
       mesh.receiveShadow = true;
       mesh.castShadow = true;
       mesh.userData.originalPiece = packedGeo;
