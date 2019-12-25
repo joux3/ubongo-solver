@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/ubongo-solver/precache-manifest.1b9ad498043835386be06c0c6fd6345d.js"
+  "/ubongo-solver/precache-manifest.e3fc481b1063d72ad116330663ca1d2d.js"
 );
 
 self.addEventListener('message', (event) => {
