@@ -1,3 +1,4 @@
+import _ from "lodash";
 import * as THREE from "three";
 
 const piece0 = [
@@ -83,28 +84,23 @@ const piece13 = [
   [2, 1, 1]
 ];
 
-export const PIECES = [
-  piece0,
-  piece1,
-  piece1_1,
-  piece2,
-  piece13,
-  piece3,
+const BLUE = 0x6892c1;
+const YELLOW = 0xf1c148;
+const RED = 0xea584c;
+const GREEN = 0x7da442;
+export const COLORS = [BLUE, YELLOW, RED, GREEN];
 
-  piece4,
-  piece4Mirror,
-  piece7,
-  piece7Mirror,
-  piece8,
-  piece9,
+const RED_PIECES = [piece1, piece4, piece10, piece11];
+const GREEN_PIECES = [piece8, piece3, piece7, piece8, piece12Mirror];
+const BLUE_PIECES = [piece0, piece7Mirror, piece9, piece12];
+const YELLOW_PIECES = [piece1_1, piece2, piece13, piece4Mirror];
 
-  piece10,
-  piece11,
-  piece12,
-  piece12Mirror
+const PIECE_GROUPS = [
+  { color: RED, pieces: RED_PIECES },
+  { color: YELLOW, pieces: YELLOW_PIECES },
+  { color: GREEN, pieces: GREEN_PIECES },
+  { color: BLUE, pieces: BLUE_PIECES }
 ];
-
-export const COLORS = [0x39375b, 0x745c97, 0xd597ce, 0xf5b0cb];
 
 export function computePieceObjects(
   blockGeometry: THREE.Geometry
@@ -112,27 +108,36 @@ export function computePieceObjects(
   blockGeometry.computeBoundingBox();
   const size = new THREE.Vector3();
   blockGeometry.boundingBox.getSize(size);
-  return PIECES.map((packedGeo, pieceIndex) => {
-    const objectMaterial = new THREE.MeshStandardMaterial({
-      color: COLORS[pieceIndex % COLORS.length],
-      roughness: 0.9
-    });
-    const geo = new THREE.Geometry();
-    packedGeo.forEach((row, y) => {
-      row.forEach((piece, x) => {
-        for (let z = 0; z < piece; z++) {
-          const thisGeo = blockGeometry.clone();
-          thisGeo.translate(x * size.x, y * size.y, z * size.z);
-          geo.mergeMesh(new THREE.Mesh(thisGeo));
-          geo.mergeVertices();
-        }
+  return _(PIECE_GROUPS)
+    .flatMap(group =>
+      group.pieces.map(piece => ({
+        packedGeo: piece,
+        color: group.color
+      }))
+    )
+    .map(({ packedGeo, color }) => {
+      const objectMaterial = new THREE.MeshStandardMaterial({
+        color,
+        roughness: 0.9
       });
-    });
-    geo.mergeVertices();
-    const mesh = new THREE.Mesh(geo, objectMaterial);
-    mesh.receiveShadow = true;
-    mesh.castShadow = true;
+      const geo = new THREE.Geometry();
+      packedGeo.forEach((row, y) => {
+        row.forEach((piece, x) => {
+          for (let z = 0; z < piece; z++) {
+            const thisGeo = blockGeometry.clone();
+            thisGeo.translate(x * size.x, y * size.y, z * size.z);
+            geo.mergeMesh(new THREE.Mesh(thisGeo));
+            geo.mergeVertices();
+          }
+        });
+      });
+      geo.mergeVertices();
+      const mesh = new THREE.Mesh(geo, objectMaterial);
+      mesh.receiveShadow = true;
+      mesh.castShadow = true;
+      mesh.userData.originalPiece = packedGeo;
 
-    return mesh;
-  });
+      return mesh;
+    })
+    .value();
 }

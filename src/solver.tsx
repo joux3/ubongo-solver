@@ -1,7 +1,7 @@
 import _ from "lodash";
 
 type Block = [number, number, number];
-export type Piece = {
+type Piece = {
   blocks: Block[];
   originalIndex: number;
   rotations: ("x" | "y" | "z")[];
@@ -201,18 +201,6 @@ var pieces = [[[0, 2, 1], [0, 2, 0], [1, 2, 0], [1, 1, 0], [1, 0, 0]],
     });
   }
 
-  var colors = [
-    0xdf1f1f,
-    0xdfaf1f,
-    0x80df1f,
-    0x1fdf50,
-    0x1fdfdf,
-    0x1f4fdf,
-    0x7f1fdf,
-    0xdf1faf,
-    0xefefef,
-    0x303030
-  ];
   const placedPieces: PlacedPiece[] = [];
   function solveBoard(piecesLeft: Piece[][]): PlacedPiece[] | null {
     if (piecesLeft.length === 0) {

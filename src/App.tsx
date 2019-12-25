@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import * as THREE from "three";
 import _ from "lodash";
-import { computePieceObjects, PIECES, COLORS } from "./pieces";
+import { computePieceObjects, COLORS } from "./pieces";
 import { solve, SolvedPiece } from "./solver";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
@@ -178,7 +178,10 @@ class UbongoRenderer {
           screenPos.y -= 0.2;
           screenPos.project(this.camera);
           numberInput.style.opacity = "1";
-          numberInput.dataset.pieceIndex = i.toString();
+          numberInput.dataset.pieceJson = JSON.stringify(
+            viewObj.userData.originalPiece
+          );
+          numberInput.dataset.originalIndex = i.toString();
           numberInput.style.left = `${Math.round(
             screenPos.x * widthHalf + widthHalf
           )}px`;
@@ -367,11 +370,14 @@ class UbongoRenderer {
     this.setText("2/3: Valitse palat");
     this.setButton("Ratkaise lauta", () => {
       this.setButton(null, () => {});
-      const pieceIndices = _(document.querySelectorAll("input"))
+      const originalPieces = _(document.querySelectorAll("input"))
         .flatMap(input =>
           _.times(
             parseInt(input.value, 10),
-            _.constant(parseInt(input.dataset.pieceIndex || "", 10))
+            _.constant([
+              JSON.parse(input.dataset.pieceJson || ""),
+              parseInt(input.dataset.originalIndex || "", 10)
+            ])
           )
         )
         .value();
@@ -380,7 +386,10 @@ class UbongoRenderer {
       );
       console.log("-------flatboard");
       console.log(flatBoard);
-      const solverPieces = pieceIndices.map(i => toSolverPiece(PIECES[i], i));
+      const solverPieces = originalPieces.map(
+        ([originalPiece, originalIndex]) =>
+          toSolverPiece(originalPiece, originalIndex)
+      );
       if (
         flatBoard.filter(x => x).length * 2 !==
         _(solverPieces)
