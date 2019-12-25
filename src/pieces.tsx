@@ -32,13 +32,18 @@ const piece4 = [
   [0, 2]
 ];
 
-const piece6 = [
+const piece4Mirror = [
   [1, 1],
-  [0, 2],
-  [0, 1]
+  [1, 0],
+  [2, 0]
 ];
 
 const piece7 = [
+  [2, 0, 0],
+  [1, 1, 1]
+];
+
+const piece7Mirror = [
   [1, 1, 1],
   [2, 0, 0]
 ];
@@ -68,6 +73,11 @@ const piece12 = [
   [0, 1, 1]
 ];
 
+const piece12Mirror = [
+  [0, 1, 1],
+  [2, 1, 0]
+];
+
 const piece13 = [
   [0, 1, 0],
   [2, 1, 1]
@@ -80,14 +90,18 @@ export const PIECES = [
   piece2,
   piece13,
   piece3,
+
   piece4,
-  piece6,
+  piece4Mirror,
   piece7,
+  piece7Mirror,
   piece8,
   piece9,
+
   piece10,
   piece11,
-  piece12
+  piece12,
+  piece12Mirror
 ];
 
 export const COLORS = [0x39375b, 0x745c97, 0xd597ce, 0xf5b0cb];

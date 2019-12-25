@@ -36,7 +36,7 @@ const pieceObjects = computePieceObjects(blockGeometry);
 
 const HOVER_OPACITY = 0.25;
 const SELECTED_OPACITY = 0.8;
-const PIECES_PER_ROW = 5;
+const PIECES_PER_ROW = 6;
 const ANIM_SPEED = 0.025;
 const ANIM_SPEED_MOVE = 0.01;
 
@@ -157,9 +157,9 @@ class UbongoRenderer {
           const x = i % PIECES_PER_ROW;
           const y = Math.floor(i / PIECES_PER_ROW);
           const viewObj = obj.clone();
-          viewObj.translateX((-2 + x) * 0.5);
+          viewObj.translateX((-2.8 + x) * 0.5);
           viewObj.translateY(0.6 - y * 0.65);
-          viewObj.translateZ(-0.8);
+          viewObj.translateZ(-1);
           viewObj.receiveShadow = true;
           viewObj.castShadow = true;
           (viewObj as any).material.transparent = true;
